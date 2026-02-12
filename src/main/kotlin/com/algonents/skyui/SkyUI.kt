@@ -1,7 +1,10 @@
 package com.algonents.skyui
 
 import kotlinx.html.FlowContent
+import kotlinx.html.HEAD
 import kotlinx.html.HTMLTag
+import kotlinx.html.link
+import kotlinx.html.script
 import kotlinx.html.unsafe
 
 class AssetRegistry {
@@ -28,5 +31,24 @@ class SkyUI(val registry: AssetRegistry? = null) {
                 +"""<script>if(!document.querySelector('script[src="$path"]')){var s=document.createElement('script');s.src='$path';document.head.appendChild(s)}</script>"""
             }
         }
+    }
+}
+
+fun HEAD.skyuiHead(ui: SkyUI) {
+    link(rel = "stylesheet", href = "https://unpkg.com/leaflet/dist/leaflet.css")
+    script(src = "https://kit.fontawesome.com/35cad2ef35.js") {}
+
+    link(rel = "stylesheet", href = "/static/css/skyui-base.css")
+
+    ui.registry?.cssFiles?.forEach { cssPath ->
+        link(rel = "stylesheet", href = cssPath)
+    }
+
+    script(src = "https://unpkg.com/htmx.org@1.9.10") {}
+    script(src = "https://unpkg.com/inputmask@5.0.8/dist/inputmask.min.js") {}
+    script(src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js") {}
+
+    ui.registry?.jsFiles?.forEach { jsPath ->
+        script(src = jsPath) {}
     }
 }
