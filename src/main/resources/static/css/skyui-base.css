@@ -1,0 +1,147 @@
+:root {
+  /* Blue Tones */
+  --airui-blue-100: #e6f0fb;
+  --airui-blue-200: #c0dbf5;
+  --airui-blue-300: #99c5f0;
+  --airui-blue-400: #66aeea;
+  --airui-blue-500: #3397e4; /* Primary */
+  --airui-blue-600: #1a7fcb;
+  --airui-blue-700: #1566a1;
+  --airui-blue-800: #104d77;
+  --airui-blue-900: #0a334d;
+
+  /* Semantic Colors */
+  --airui-bg: #f8fbfe;
+  --airui-panel-bg: var(--airui-blue-100);
+  --airui-header-bg: white/*var(--airui-blue-200)*/;
+  --airui-footer-bg: var(--airui-blue-200);
+  --airui-sidebar-bg: var(--airui-blue-100);
+  --airui-main-bg: white;
+
+  --airui-border: var(--airui-blue-300);
+
+  --airui-text: var(--airui-blue-900);
+  --airui-text-secondary: var(--airui-blue-700);
+
+  --airui-button-bg: var(--airui-blue-500);
+  --airui-button-bg-hover: var(--airui-blue-600);
+  --airui-button-text: white;
+
+  --airui-highlight: var(--airui-blue-400);
+}
+
+:root[data-theme="dark"] {
+  /* Blue Shades for Dark Mode */
+  --airui-blue-100: #1e2a39;
+  --airui-blue-200: #24364b;
+  --airui-blue-300: #2f4863;
+  --airui-blue-400: #3b5a7c;
+  --airui-blue-500: #4a72a0;
+  --airui-blue-600: #5b8dc2;
+  --airui-blue-700: #79a6d4;
+  --airui-blue-800: #a2c3e4;
+  --airui-blue-900: #c9ddf2;
+
+  /* Semantic Mappings */
+  --airui-bg: #0e1a2b;              /* Page background */
+  --airui-panel-bg: var(--airui-blue-100);
+  --airui-header-bg: var(--airui-blue-200);
+  --airui-sidebar-bg: var(--airui-blue-100);
+  --airui-main-bg: var(--airui-blue-200);
+
+  --airui-border: var(--airui-blue-300);
+
+  --airui-text: var(--airui-blue-900);
+  --airui-text-secondary: var(--airui-blue-700);
+
+  --airui-button-bg: var(--airui-blue-500);
+  --airui-button-bg-hover: var(--airui-blue-600);
+  --airui-button-text: white;
+
+  --airui-highlight: var(--airui-blue-400);
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", blueprint-icons-16, sans-serif;
+    font-size: 14px;
+    color: var(--airui-text);
+    background-color: var(--airui-bg);
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Make sure buttons and form elements inherit the font */
+button, input, select, textarea {
+    font-size: inherit;
+    font-family: inherit;
+}
+
+.root-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.contents {
+    height: calc(100vh - 100px);
+    display: flex;
+    background-color: #383E47;
+}
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: var(--airui-main-bg);
+}
+
+.main-panel{
+    display: flex;
+    flex-direction: column;
+    height:100%;
+    margin: 20px 20px
+}
+
+button{
+    background: var(--airui-button-bg);
+    color: var(--airui-button-text);
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+
+.small-button {
+    background: var(--airui-button-bg);
+    color: var(--airui-button-text);
+    border: none;
+    font-size:10px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.button:hover,.small-button:hover {
+    background-color: var(--airui-button-bg-hover);
+}
+
+/* Navbar */
+
+.navbar {
+    height: 50px;
+    min-height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: var(--airui-header-bg);
+    border-bottom: 1px solid #ddd;
+}

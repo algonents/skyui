@@ -1,0 +1,39 @@
+/* Sidebar */
+
+#sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  opacity: 1;
+  transition: width 0.3s ease;
+  white-space: nowrap;
+  overflow-x: hidden;
+  height: 100%;
+  background: var(--airui-sidebar-bg);
+}
+
+#sidebar.sidebar-collapsed {
+  width: 0;
+  opacity: 0; /* optional — can be dropped */
+}
+
+#floating-sidebar {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 60px;
+  left: 0;
+  width: 300px;
+  height: 800px;
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  background: var(--airui-sidebar-bg);
+  z-index: 9999;
+}
+
+#floating-sidebar.show {
+  transform: translateX(0);
+  opacity: 1;
+}

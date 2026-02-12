@@ -1,0 +1,41 @@
+/* Editors */
+
+.latitude-wrapper input.latitude-dms {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background: none;
+    outline: none;
+    font-family: monospace;
+    font-size: 1em;
+    padding: 4px 8px;
+    width: 120px;
+    transition: border-color 0.2s;
+}
+
+.latitude-wrapper:has(.validation-message:not(:empty)) input {
+    color: red;
+    border-color: red;
+}
+
+div.waypoint-designator > input {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background: none;
+    outline: none;
+    font-family: monospace;
+    font-size: 1em;
+    padding: 4px 8px;
+    width: 120px;
+    transition: border-color 0.2s;
+    color: var(--airui-text);
+}
+
+div.waypoint-designator-validation-result{
+    max-width: 120px;
+}
+
+div.waypoint-designator:has(.waypoint-designator-validation-result:not(:empty)) input,
+div.waypoint-designator:has(.waypoint-designator-validation-result:not(:empty)) div {
+    color: red;
+    border-color: red;
+}
