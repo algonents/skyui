@@ -13,6 +13,8 @@ enum class ColumnType {
     UUID
 }
 
+data class PageInfo(val page: Int, val pageSize: Int, val totalRows: Long)
+
 data class ColumnDefinition<T>(
     val name: String,
     val field: String,
@@ -24,12 +26,14 @@ data class ColumnDefinition<T>(
 )
 
 private fun tbodyId(baseUrl: String) = "datagrid-body-${baseUrl.trimStart('/').replace('/', '-')}"
+private fun pagerId(baseUrl: String) = "datagrid-pager-${baseUrl.trimStart('/').replace('/', '-')}"
 
 fun <T> FlowContent.datagrid(
     ui: SkyUI,
     columns: List<ColumnDefinition<T>>,
     data: List<T>,
     baseUrl: String,
+    pageInfo: PageInfo? = null,
     rowId: (T) -> Any
 ) {
     val bodyId = tbodyId(baseUrl)
@@ -45,8 +49,13 @@ fun <T> FlowContent.datagrid(
                     placeholder = "Search..."
                     attributes["hx-get"] = "$baseUrl/search"
                     attributes["hx-trigger"] = "keyup changed delay:300ms"
-                    attributes["hx-target"] = "#$bodyId"
-                    attributes["hx-swap"] = "innerHTML"
+                    if (pageInfo != null) {
+                        attributes["hx-swap"] = "none"
+                        attributes["hx-vals"] = """{"pageSize":"${pageInfo.pageSize}"}"""
+                    } else {
+                        attributes["hx-target"] = "#$bodyId"
+                        attributes["hx-swap"] = "innerHTML"
+                    }
                 }
             }
             button(classes = "datagrid-add-btn") {
@@ -84,6 +93,7 @@ fun <T> FlowContent.datagrid(
                 }
             }
         }
+        pagerFooter(baseUrl, data.size, pageInfo)
     }
 }
 
@@ -244,6 +254,74 @@ fun <T> TagConsumer<*>.newEditableRow(
             }
         }
     }
+}
+
+private fun FlowContent.pagerFooter(baseUrl: String, dataSize: Int, pageInfo: PageInfo?) {
+    val id = pagerId(baseUrl)
+    div("datagrid-pager") {
+        this.id = id
+        pagerContent(baseUrl, dataSize, pageInfo)
+    }
+}
+
+private fun FlowContent.pagerContent(baseUrl: String, dataSize: Int, pageInfo: PageInfo?) {
+    if (pageInfo == null || pageInfo.totalRows <= pageInfo.pageSize) {
+        val count = pageInfo?.totalRows?.toInt() ?: dataSize
+        span { +"${formatNumber(count.toLong())} rows" }
+    } else {
+        val start = (pageInfo.page - 1) * pageInfo.pageSize + 1
+        val end = minOf(pageInfo.page.toLong() * pageInfo.pageSize, pageInfo.totalRows)
+        val lastPage = ((pageInfo.totalRows + pageInfo.pageSize - 1) / pageInfo.pageSize).toInt()
+        span { +"Showing ${formatNumber(start.toLong())}\u2013${formatNumber(end)} of ${formatNumber(pageInfo.totalRows)} rows" }
+        button(classes = "pager-btn") {
+            if (pageInfo.page <= 1) {
+                disabled = true
+            } else {
+                attributes["hx-get"] = "$baseUrl/page?page=${pageInfo.page - 1}&pageSize=${pageInfo.pageSize}"
+                attributes["hx-swap"] = "none"
+            }
+            i("fa-solid fa-chevron-left")
+        }
+        button(classes = "pager-btn") {
+            if (pageInfo.page >= lastPage) {
+                disabled = true
+            } else {
+                attributes["hx-get"] = "$baseUrl/page?page=${pageInfo.page + 1}&pageSize=${pageInfo.pageSize}"
+                attributes["hx-swap"] = "none"
+            }
+            i("fa-solid fa-chevron-right")
+        }
+    }
+}
+
+fun <T> TagConsumer<*>.datagridPage(
+    columns: List<ColumnDefinition<T>>,
+    data: List<T>,
+    baseUrl: String,
+    rowId: (T) -> Any,
+    pageInfo: PageInfo,
+) {
+    val bodyId = tbodyId(baseUrl)
+    // Wrap rows in <table><tbody> so the HTML parser preserves <tr> elements.
+    // Both tbody and pager use hx-swap-oob; callers should use hx-swap="none".
+    table {
+        style = "display:none"
+        tbody {
+            attributes["hx-swap-oob"] = "innerHTML:#$bodyId"
+            data.forEach { item ->
+                readOnlyRow(columns, item, baseUrl, rowId(item))
+            }
+        }
+    }
+    div("datagrid-pager") {
+        id = pagerId(baseUrl)
+        attributes["hx-swap-oob"] = "outerHTML"
+        pagerContent(baseUrl, data.size, pageInfo)
+    }
+}
+
+private fun formatNumber(n: Long): String {
+    return String.format("%,d", n)
 }
 
 private fun <T> cellClass(column: ColumnDefinition<T>): String? = when (column.type) {

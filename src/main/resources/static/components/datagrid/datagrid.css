@@ -180,6 +180,41 @@ tr.selected .action-btn,
   border-bottom-color: var(--airui-red-500, #ef4444);
 }
 
+/* Datagrid pager */
+.datagrid-pager {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--airui-border);
+  border-top: none;
+  background: var(--airui-header-bg);
+  font-size: 12px;
+  color: var(--airui-text-secondary);
+}
+
+.datagrid-pager .pager-btn {
+  background: none;
+  border: 1px solid var(--airui-border);
+  color: var(--airui-blue-600);
+  cursor: pointer;
+  padding: 2px 8px;
+  font-size: 12px;
+  border-radius: 3px;
+}
+
+.datagrid-pager .pager-btn:hover:not(:disabled) {
+  background: var(--airui-blue-100);
+  color: var(--airui-blue-800);
+}
+
+.datagrid-pager .pager-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+  pointer-events: none;
+}
+
 /* Column resize handles */
 .col-resize-handle {
   display: block;
