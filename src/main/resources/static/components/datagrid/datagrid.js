@@ -10,6 +10,8 @@ function setup() {
       tbody.querySelectorAll("tr.selected").forEach(r => r.classList.remove("selected"));
       row.classList.add("selected");
       tbody.dataset.selectedRow = row.id;
+      var recordId = row.id.replace(/^row-/, "");
+      document.dispatchEvent(new CustomEvent("skyui:row-selected", { detail: { id: recordId } }));
     });
   });
 

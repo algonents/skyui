@@ -50,7 +50,7 @@ fun <T> FlowContent.datagrid(
                 }
             }
             button(classes = "datagrid-add-btn") {
-                attributes["hx-post"] = "$baseUrl/add"
+                attributes["hx-get"] = "$baseUrl/new"
                 attributes["hx-target"] = "#$bodyId"
                 attributes["hx-swap"] = "afterbegin"
                 i("fa-solid fa-plus")
@@ -193,6 +193,53 @@ fun <T> TagConsumer<*>.editableRow(
                 attributes["hx-get"] = "$baseUrl/$rowId"
                 attributes["hx-target"] = "closest tr"
                 attributes["hx-swap"] = "outerHTML"
+                i("fa-solid fa-xmark")
+            }
+        }
+    }
+}
+
+fun <T> TagConsumer<*>.newEditableRow(
+    columns: List<ColumnDefinition<T>>,
+    item: T,
+    baseUrl: String,
+) {
+    tr {
+        columns.forEach { column ->
+            td(cellClass(column)) {
+                if (column.editable) {
+                    val editorFn = column.editor
+                    if (editorFn != null) {
+                        editorFn(this, displayValue(column, item))
+                    } else {
+                        input {
+                            name = column.field
+                            value = displayValue(column, item)
+                            type = when (column.type) {
+                                ColumnType.FLOAT, ColumnType.DOUBLE -> InputType.number
+                                ColumnType.INT -> InputType.number
+                                else -> InputType.text
+                            }
+                            if (column.type == ColumnType.FLOAT || column.type == ColumnType.DOUBLE) {
+                                attributes["step"] = "any"
+                            }
+                        }
+                    }
+                } else {
+                    +displayValue(column, item)
+                }
+            }
+        }
+        td("datagrid-actions") {
+            button(classes = "action-btn save-btn") {
+                attributes["hx-post"] = baseUrl
+                attributes["hx-target"] = "closest tr"
+                attributes["hx-swap"] = "outerHTML"
+                attributes["hx-include"] = "closest tr"
+                i("fa-solid fa-floppy-disk")
+            }
+            button(classes = "action-btn cancel-btn") {
+                attributes["hx-on:click"] = "this.closest('tr').remove()"
                 i("fa-solid fa-xmark")
             }
         }
