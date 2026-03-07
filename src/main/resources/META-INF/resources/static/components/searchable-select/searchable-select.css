@@ -1,0 +1,52 @@
+.skyui-searchable-select {
+  position: relative;
+}
+
+.skyui-searchable-select-input {
+  border: none;
+  border-bottom: 1px solid var(--airui-border);
+  outline: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--airui-text);
+  padding: 2px 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.skyui-searchable-select-input:focus {
+  border-bottom-color: var(--airui-blue-500);
+}
+
+.skyui-searchable-select-input::placeholder {
+  color: var(--airui-text-secondary);
+}
+
+.skyui-searchable-select-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  max-height: 200px;
+  overflow-y: auto;
+  background: var(--airui-main-bg);
+  border: 1px solid var(--airui-border);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.skyui-searchable-select-dropdown:empty {
+  display: none;
+}
+
+.skyui-select-item {
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.skyui-select-item:hover {
+  background: var(--airui-button-bg-hover);
+  color: var(--airui-button-text);
+}
