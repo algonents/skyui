@@ -12,8 +12,13 @@ fun FlowContent.mapDesigner(
     height: String = "100%",
     waypointsJson: String? = null,
     src: String? = null,
+    searchEndpoint: String? = null,
     block: FlowContent.() -> Unit = {}
 ) {
+    if (searchEndpoint != null) {
+        ui.requireCss(this, "/static/components/map-designer/point-search-control.css")
+        ui.requireJs(this, "/static/components/map-designer/point-search-control.js")
+    }
     ui.requireJs(this, "/static/components/map-designer/map-designer.js")
     val attrs = mutableMapOf(
         "lat" to lat.toString(),
@@ -23,6 +28,7 @@ fun FlowContent.mapDesigner(
     )
     if (waypointsJson != null) attrs["data-waypoints"] = waypointsJson
     if (src != null) attrs["src"] = src
+    if (searchEndpoint != null) attrs["data-search-endpoint"] = searchEndpoint
 
     val tag = object : HTMLTag(
         tagName = "map-designer",

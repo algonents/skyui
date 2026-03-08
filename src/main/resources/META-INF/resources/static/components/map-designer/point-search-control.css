@@ -1,0 +1,170 @@
+.point-search-control {
+  position: relative;
+}
+
+.point-search-toggle {
+  width: 26px;
+  height: 26px;
+  background: var(--airui-bg, #fff);
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--airui-text, #333);
+  padding: 0;
+  line-height: 1;
+}
+
+.point-search-toggle:hover {
+  background: var(--airui-bg-hover, #f4f4f4);
+}
+
+.point-search-panel {
+  position: absolute;
+  top: 0;
+  right: 32px;
+  width: 240px;
+  background: var(--airui-bg, #fff);
+  border: 1px solid var(--airui-border, #ccc);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.point-search-input {
+  width: 100%;
+  padding: 5px 8px;
+  border: none;
+  border-bottom: 1px solid var(--airui-border, #ddd);
+  outline: none;
+  font-size: 11px;
+  background: var(--airui-bg, #fff);
+  color: var(--airui-text, #333);
+  box-sizing: border-box;
+}
+
+.point-search-input::placeholder {
+  color: var(--airui-text-muted, #999);
+}
+
+.point-search-results {
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.point-search-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--airui-border-light, #eee);
+  transition: background 0.1s;
+}
+
+.point-search-item:last-child {
+  border-bottom: none;
+}
+
+.point-search-item:hover {
+  background: var(--airui-bg-hover, #f0f4ff);
+}
+
+.point-search-item--added {
+  background: var(--airui-bg-selected, #e8f0fe);
+}
+
+.point-search-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.point-search-designator {
+  font-weight: 600;
+  font-size: 11px;
+  color: var(--airui-text, #333);
+}
+
+.point-search-type {
+  font-size: 10px;
+  color: var(--airui-text-muted, #777);
+  background: var(--airui-badge-bg, #e9ecef);
+  padding: 1px 5px;
+  border-radius: 3px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.point-search-coords {
+  font-size: 10px;
+  color: var(--airui-text-muted, #999);
+  font-variant-numeric: tabular-nums;
+}
+
+.point-search-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--airui-text-muted, #999);
+  padding: 2px;
+  font-size: 10px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.point-search-remove:hover {
+  color: var(--airui-danger, #d33);
+}
+
+.point-search-empty,
+.point-search-error,
+.point-search-more {
+  padding: 5px 8px;
+  font-size: 10px;
+  color: var(--airui-text-muted, #999);
+  text-align: center;
+}
+
+.point-search-error {
+  color: var(--airui-danger, #d33);
+}
+
+/* Dark mode */
+:root[data-theme="dark"] .point-search-toggle {
+  background: var(--airui-bg, #2b2b2b);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--airui-text, #ddd);
+}
+
+:root[data-theme="dark"] .point-search-toggle:hover {
+  background: var(--airui-bg-hover, #3a3a3a);
+}
+
+:root[data-theme="dark"] .point-search-panel {
+  background: var(--airui-bg, #2b2b2b);
+  border-color: var(--airui-border, #555);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+:root[data-theme="dark"] .point-search-input {
+  background: var(--airui-bg, #2b2b2b);
+  color: var(--airui-text, #ddd);
+  border-bottom-color: var(--airui-border, #555);
+}
+
+:root[data-theme="dark"] .point-search-item:hover {
+  background: var(--airui-bg-hover, #3a3a3a);
+}
+
+:root[data-theme="dark"] .point-search-item--added {
+  background: var(--airui-bg-selected, #1a3a5c);
+}
+
+:root[data-theme="dark"] .point-search-type {
+  background: var(--airui-badge-bg, #444);
+}

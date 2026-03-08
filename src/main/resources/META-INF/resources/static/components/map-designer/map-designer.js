@@ -57,6 +57,17 @@ class MapDesigner extends HTMLElement {
 
      this._theme = theme;
 
+     const searchEndpoint = this.getAttribute('data-search-endpoint');
+     if (searchEndpoint) {
+       const addControl = () => new PointSearchControl({ searchEndpoint, mapDesignerEl: this }).addTo(this._map);
+       if (typeof PointSearchControl !== 'undefined') {
+         addControl();
+       } else {
+         const script = document.querySelector('script[src*="point-search-control"]');
+         if (script) script.addEventListener('load', addControl);
+       }
+     }
+
      setTimeout(() => this._map.invalidateSize(), 0);
    }
 
