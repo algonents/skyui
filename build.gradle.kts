@@ -12,7 +12,7 @@ publishing {
 }
 
 group = "com.algonents.skyui"
-version = "0.1.0"
+version = "0.2.0-SNAPSHOT"
 
 dependencies {
     implementation(libs.kotlinx.html)
